@@ -5,7 +5,7 @@
 <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 <script src="SilverLight.js"></script>
 <script>
-var bing_key = "AjBvwYEHrzw5JvHreSwqWKCY7hrmKqvCnj9iDhgTyAPHjGdnLod8-bPlru33f6N4";
+var bing_key = "blah4";
 var map = null;
 
       function GetMap()
@@ -34,7 +34,7 @@ var map = null;
           Microsoft.Maps.registerModule("SLStreetsideModule", "scripts/SLStreetsideModule.js", { styleURLs: ["styles/SLStreetsideModule.css"] });
             Microsoft.Maps.loadModule("SLStreetsideModule", { callback: function () {
                 slMap = new SLStreetsideModule(map);
-            } 
+            } `
             });
          map.setView({center:new Microsoft.Maps.Location(latVal, longVal),zoom: 8 });
 
@@ -60,23 +60,31 @@ GetMap();
 
 /*
 
+
 https://raw.githubusercontent.com/va-data/va-resources/master/homeless-assistance.json
 https://raw.githubusercontent.com/va-data/va-facilities/master/facilities.json
 https://raw.githubusercontent.com/va-data/va-resources/master/family-caregiver-support.json
-
+https://api.data.gov/gsa/fbopen/v0/opps?q=accounting&api_key=XcatBp9s9TBuL1VT047HE6yqxPxPIpIbuktyvrnj
 
 */
-x = $.ajax({
-  dataType: "json",
-  url: "https://api.data.gov/gsa/fbopen/v0/opps?q=accounting&api_key=XcatBp9s9TBuL1VT047HE6yqxPxPIpIbuktyvrnj",
-  data: data,
-  success: success
-})
-.done(function( data ) {
-	console.log(data);
-	console.log(data["docs"])
+var x = function getVData(url){
+  stuff = ""
+  data = ""
+  success = ""
+  x = $.ajax({
+    dataType: "json",
+    url: url,
+    data: data,
+    success: success
+  })
+  .done(function( data ) {
+    stuff = data["docs"]
 
-	});
+    });
+  return stuff;
+}
+
+print getVData("https://api.data.gov/gsa/fbopen/v0/opps?q=accounting&api_key=XcatBp9s9TBuL1VT047HE6yqxPxPIpIbuktyvrnj")
 
 //console.log(data);
 /*
