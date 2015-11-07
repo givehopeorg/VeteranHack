@@ -15,6 +15,8 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
+		<script src="parse.js"></script>
+		<script src="map.js"></script>
 		<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
 		</noscript>
@@ -55,7 +57,7 @@
 				</div>
 				<div class="6u 12u$(xsmall)">
 				<!-- <div class="table-wrapper"> -->
-					<table class="alt">
+					<table class="alt" style="text-align:center;width:80%;border:1px solid black">
 						<thead>
 							<tr>
 								<th>Name</th>
@@ -63,9 +65,9 @@
 								<th>link</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td>Item 1</td>
+						<tbody id="data_table" style="text-align:center;width:80%;border:1px solid black">
+							<!-- <tr>
+								<td class="">Item 1</td>
 								<td>Description 1.</td>
 								<td>link 1</td>
 							</tr>
@@ -74,10 +76,11 @@
 								<td>Description 2</td>
 								<td>link 2</td>
 							</tr>
+						-->
 						</tbody>
 					</table>
 				</div>
-
+				<div id="info"></div>
 			</section>
 
 
@@ -95,6 +98,9 @@
 				</ul>
 			</div>
 		</footer>
-
+		<script>
+		getVData("https://raw.githubusercontent.com/va-data/va-resources/master/homeless-assistance.json", care);
+		
+		</script>
 	</body>
 </html>
