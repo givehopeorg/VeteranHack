@@ -5,7 +5,7 @@
 <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 <script src="SilverLight.js"></script>
 <script>
-var bing_key = "blah4";
+var bing_key = "dummy";
 var map = null;
 
       function GetMap()
@@ -34,18 +34,24 @@ var map = null;
           Microsoft.Maps.registerModule("SLStreetsideModule", "scripts/SLStreetsideModule.js", { styleURLs: ["styles/SLStreetsideModule.css"] });
             Microsoft.Maps.loadModule("SLStreetsideModule", { callback: function () {
                 slMap = new SLStreetsideModule(map);
-            } `
+            } 
             });
          map.setView({center:new Microsoft.Maps.Location(latVal, longVal),zoom: 8 });
 
       }
-      </script>
+</script>
+<style>
+.Active, .LogoSearchContainer{
+  display:none;
+}
 
+</style>
 </head>
 <body>
+  <div id="info">
+  </div>
 
-
- <div id='mapDiv' style="position:relative; width:600px; height:600px;"></div> 
+ <div id='mapDiv' style="position:relative; width:300px; height:300px;"></div> 
       Latitude, Longitude: <input id="txtlatlong" type="text" value="40, -120"/>
       <input type="button" value="Set center location" onclick="SetLocation();"/>
 
@@ -66,25 +72,93 @@ https://raw.githubusercontent.com/va-data/va-facilities/master/facilities.json
 https://raw.githubusercontent.com/va-data/va-resources/master/family-caregiver-support.json
 https://api.data.gov/gsa/fbopen/v0/opps?q=accounting&api_key=XcatBp9s9TBuL1VT047HE6yqxPxPIpIbuktyvrnj
 
+
 */
-var x = function getVData(url){
-  stuff = ""
-  data = ""
-  success = ""
-  x = $.ajax({
+
+var jobs = function (data){
+
+
+
+
+}
+function facilities(data){
+  console.log(data);
+  data = data["facilities"];
+
+  for (var i =0 ; i < data.length; i++){
+    ele = data[i];
+    d = document.createElement("div");
+
+    a = document.createElement("a");
+    a.href = ele["url"];
+    a.innerHTML = ele["url"];
+    $(a).appendTo(d);
+    console.log(ele);
+    title = document.createElement("h2");
+    title.innerHTML=ele["name"].replace(/<\/?[^>]+(>|$)/g, " ");
+
+    address = document.createElement("p");
+    address.innerHTML= String(ele["address"] + " "+ ele["city"] + ", "  + ele["state"]).replace(/<\/?[^>]+(>|$)/g, "");
+
+    type = document.createElement("p");
+    type.innerHTML=ele["type"].replace(/<\/?[^>]+(>|$)/g, " ");
+
+    description = document.createElement("p")
+    description.innerHTML=ele["description"];//replace(/<\/?[^>]+(>|$)/g, " ");
+
+
+    
+
+    n = "ele ele" + i;
+    $(title).addClass(n).appendTo(d);
+    $(address).addClass(n).appendTo(d);
+    $(type).addClass(n).appendTo(d);
+    $(description).addClass(n).appendTo(d);    
+    $(d).addClass(n).appendTo("#info");
+
+  }
+
+}
+function getVData(url,parser){
+  var stuff, data, success;
+   $.ajax({
     dataType: "json",
     url: url,
     data: data,
-    success: success
-  })
-  .done(function( data ) {
-    stuff = data["docs"]
-
-    });
-  return stuff;
+    success: function(data){
+     // console.log(data);
+      parser(data);
+      
+      //stuff = data;
+    }
+  });
 }
 
-print getVData("https://api.data.gov/gsa/fbopen/v0/opps?q=accounting&api_key=XcatBp9s9TBuL1VT047HE6yqxPxPIpIbuktyvrnj")
+function care (data){
+  console.log(data);
+  for (var i =0 ; i < data.length; i++){
+    d = document.createElement("div");
+
+    a = document.createElement("a");
+    a.href=data[i]["linkName"];
+    a.innerHTML = data[i]["linkName"];
+    $(a).appendTo(d);
+
+    title = document.createElement("h2");
+    
+
+    $(d).addClass("ele").appendTo("#info");
+
+  }
+
+
+
+}
+//console.log(getVData("https://raw.githubusercontent.com/va-data/va-resources/master/family-caregiver-support.json", care));
+ console.log(getVData("https://raw.githubusercontent.com/va-data/va-facilities/master/facilities.json", facilities))
+
+//console.log(getVData("https://api.data.gov/gsa/fbopen/v0/opps?q=accounting&api_key=XcatBp9s9TBuL1VT047HE6yqxPxPIpIbuktyvrnj"), jobs);
+//console.log(getVData("https://api.data.gov/gsa/fbopen/v0/opps?q=accounting&api_key=XcatBp9s9TBuL1VT047HE6yqxPxPIpIbuktyvrnj"));
 
 //console.log(data);
 /*
