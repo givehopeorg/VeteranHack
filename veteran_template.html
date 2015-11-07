@@ -104,7 +104,7 @@ function facilities(data){
     type.innerHTML=ele["type"].replace(/<\/?[^>]+(>|$)/g, " ");
 
     description = document.createElement("p")
-    description.innerHTML=ele["description"];//replace(/<\/?[^>]+(>|$)/g, " ");
+    description.innerHTML=ele["description"].replace(/<\/?[^>]+(>|$)/g, " ");;//replace(/<\/?[^>]+(>|$)/g, " ");
 
 
     
@@ -137,6 +137,7 @@ function getVData(url,parser){
 function care (data){
   console.log(data);
   for (var i =0 ; i < data.length; i++){
+    ele = data[i];
     d = document.createElement("div");
 
     a = document.createElement("a");
@@ -145,7 +146,16 @@ function care (data){
     $(a).appendTo(d);
 
     title = document.createElement("h2");
-    
+    title.innerHTML = ele["title"];
+    linkName = document.createElement("span");
+    linkName.innerHTML = ele["linkName"];
+    content = document.createElement("span");
+    content.innerHTML = ele["content"].replace(/<\/?[^>]+(>|$)/g, " ");;
+
+    $(title).appendTo(d);
+    $(linkName).appendTo(d);
+    $(content).appendTo(d);
+
 
     $(d).addClass("ele").appendTo("#info");
 
@@ -155,7 +165,7 @@ function care (data){
 
 }
 //console.log(getVData("https://raw.githubusercontent.com/va-data/va-resources/master/family-caregiver-support.json", care));
- console.log(getVData("https://raw.githubusercontent.com/va-data/va-facilities/master/facilities.json", facilities))
+ //console.log(getVData("https://raw.githubusercontent.com/va-data/va-facilities/master/facilities.json", facilities))
 
 //console.log(getVData("https://api.data.gov/gsa/fbopen/v0/opps?q=accounting&api_key=XcatBp9s9TBuL1VT047HE6yqxPxPIpIbuktyvrnj"), jobs);
 //console.log(getVData("https://api.data.gov/gsa/fbopen/v0/opps?q=accounting&api_key=XcatBp9s9TBuL1VT047HE6yqxPxPIpIbuktyvrnj"));
