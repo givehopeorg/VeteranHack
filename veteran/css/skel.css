@@ -247,3 +247,8 @@
 		.\-3u { margin-left: 25% }
 		.\-2u { margin-left: 16.6666666667% }
 		.\-1u { margin-left: 8.3333333333% }
+
+		table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+		}
