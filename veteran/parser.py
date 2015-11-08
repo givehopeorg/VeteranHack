@@ -44,3 +44,21 @@ for i in xrange(len(facilities)):
         dicts={"name":name, "types":types,"address":address,"phone":phone,"latitude":latitude,"longitude":longitude,"description":description,"url":url}
         facilities_update.write(json.dumps(dicts, sort_keys=True, indent=4, separators=(',', ': ')))
 facilities_update.close()
+
+with open('raw_jobs.json','r') as data_file3:
+    jobs = json.load(data_file3)
+jobs_update = open("jobs.json", "a")
+
+
+for i in xrange(len(jobs)):
+    if (jobs[i]["title"] != ""):
+        office = jobs[i]["office"]
+        posted_dt= jobs[i]["posted_dt"]
+        FBO_OFFAD= jobs[i]["FBO_OFFAD"]
+        zipcode= jobs[i]["zipcode"]
+        description= jobs[i]["description"]
+        listing_url= jobs[i]["listing_url"]
+
+        dicts={"office":office,"posted_dt":posted_dt,"FBO_OFFAD":FBO_OFFAD, "zipcode":zipcode, "description":description, "listing_url":listing_url}
+        jobs_update.write(json.dumps(dicts, sort_keys=True, indent=4, separators=(',', ': ')))
+jobs_update.close()
