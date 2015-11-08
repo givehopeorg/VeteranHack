@@ -4,14 +4,13 @@ function facilities(data){
 
   for (var i =0 ; i < data.length; i++){
     ele = data[i];
-    d = document.createElement("div");
+    d = document.createElement("tr");
 
     a = document.createElement("a");
     a.href = ele["url"];
     a.innerHTML = ele["url"];
-    $(a).appendTo(d);
     
-    title = document.createElement("h2");
+    title = document.createElement("span");
     title.innerHTML=ele["name"].replace(/<\/?[^>]+(>|$)/g, " ");
 
     address = document.createElement("p");
@@ -27,16 +26,24 @@ function facilities(data){
     td = document.createElement("td");
     $(title).appendTo(td);
     $(td).appendTo(d);
-    td = document.createElement("td");
-    $(address).appendTo(td);
-    $(td).appendTo(d);
-    td = document.createElement("td");
-    $(type).appendTo(td);
-    $(td).appendTo(d);
+
     td = document.createElement("td");
     $(description).appendTo(td);    
     $(td).appendTo(d);
+    
+    td = document.createElement("td");
+    $(address).appendTo(td);
+    $(td).appendTo(d);
+    
+    td = document.createElement("td");
+    $(type).appendTo(td);
+    $(td).appendTo(d);
+    
+    td = document.createElement("td");
+    $(a).appendTo(td);
+    $(td).appendTo(d);
 
+    console.log(d);
     $(d).addClass("ele").appendTo("#data_table");
 
   }
